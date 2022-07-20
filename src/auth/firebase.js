@@ -3,12 +3,14 @@ import { initializeApp } from 'firebase/app';
 
 
 import {
-    getAuth,
     createUserWithEmailAndPassword,
+    getAuth,
+    GoogleAuthProvider,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    signOut,
     updateProfile,
-
-
-
   } from "firebase/auth";
 
   // Initialize Firebase Authentication and get a reference to the service
@@ -61,4 +63,30 @@ export const createUser = async (email, password, displayName, navigate) => {
     }
   };
 
+//* => Authentication => sign-in-method => enable Email/password
+//* ====================== SİGN ======================
+export const signIn = async (email, password, navigate) => {
+    try {
+      let userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      navigate("/");
+      toast.success("Signed in successfully");
+      console.log(userCredential);
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+
+  //*==============LOGOUT===============
+
+  export const logOut = () => {
+    signOut(auth);
+    toast.success("Logged out successfully");
+  };
+
+  
 
