@@ -56,6 +56,11 @@ export const createUser = async (email, password, displayName, navigate) => {
     }
   };
 
+
+
+
+  
+
 // //* => Authentication => sign-in-method => enable Email/password
 // //* ====================== SİGN ======================
 // export const signIn = async (email, password, navigate) => {
