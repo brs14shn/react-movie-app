@@ -13,6 +13,7 @@ const Register = () => {
     e.preventDefault();
     const displayName = `${firstName} ${lastName}`;
     createUser(email, password, displayName, navigate);
+    // navigate("/") //? Burda da kullanabilirdik ancak hatalı durumdada bizi main sayfasına yönlendirecektir.
   };
 
   return (

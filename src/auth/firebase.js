@@ -6,9 +6,10 @@ import { initializeApp } from 'firebase/app';
 import {
     createUserWithEmailAndPassword,
     getAuth,
+    signInWithEmailAndPassword
   } from "firebase/auth";
 
-import { toastErrorNotify, toastSuccessNotify } from "../helper/toastifyContainer"
+ import { toastErrorNotify, toastSuccessNotify } from "../helper/toastifyContainer"
 
 
 const firebaseConfig={
@@ -25,20 +26,18 @@ const firebaseConfig={
 const app = initializeApp(firebaseConfig);
 const auth=getAuth(app)
 
-
+//* ==================CREATE USER =============================*/
 export const createUser=async(email,password,displayName,navigate)=>{
 
     try{
         let userCredential=await createUserWithEmailAndPassword(auth, email, password);
-       
-        toastSuccessNotify("Giriş başarılı")
         console.log(userCredential);
         navigate("/");
+        // toastSuccessNotify("Giriş başarılı")
         
     }
-    
     catch(err){
-     toastErrorNotify(err.message)
+    //  toastErrorNotify(err.message)
     }
     
 }
@@ -48,20 +47,20 @@ export const createUser=async(email,password,displayName,navigate)=>{
 
 // //* => Authentication => sign-in-method => enable Email/password
 // //* ====================== SİGN ======================
-// export const signIn = async (email, password, navigate) => {
-//     try {
-//       let userCredential = await signInWithEmailAndPassword(
-//         auth,
-//         email,
-//         password
-//       );
-//       navigate("/");
-//       toast.success("Signed in successfully");
-//       console.log(userCredential);
-//     } catch (err) {
-//       toast.error(err.message);
-//     }
-//   };
+export const signIn = async (email, password, navigate) => {
+    try {
+      let userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      navigate("/");
+      toastSuccessNotify("Signed in successfully");
+      console.log(userCredential);
+    } catch (err) {
+     toastErrorNotify (err.message);
+    }
+  };
 
 
 //   //*==============LOGOUT===============
