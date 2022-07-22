@@ -26,18 +26,17 @@ const firebaseConfig={
 const app = initializeApp(firebaseConfig);
 const auth=getAuth(app)
 
-//* ==================CREATE USER =============================*/
+//* ==================1-CREATE USER =============================*/
 export const createUser=async(email,password,displayName,navigate)=>{
 
     try{
         let userCredential=await createUserWithEmailAndPassword(auth, email, password);
         console.log(userCredential);
         navigate("/");
-        // toastSuccessNotify("Giriş başarılı")
-        
+        toastSuccessNotify("Giriş başarılı")   
     }
     catch(err){
-    //  toastErrorNotify(err.message)
+     toastErrorNotify(err.message)
     }
     
 }
@@ -46,7 +45,7 @@ export const createUser=async(email,password,displayName,navigate)=>{
 
 
 // //* => Authentication => sign-in-method => enable Email/password
-// //* ====================== SİGN ======================
+// //* ====================== 2- SİGN ======================
 export const signIn = async (email, password, navigate) => {
     try {
       let userCredential = await signInWithEmailAndPassword(
@@ -61,6 +60,17 @@ export const signIn = async (email, password, navigate) => {
      toastErrorNotify (err.message);
     }
   };
+
+
+
+
+
+
+
+
+
+
+
 
 
 //   //*==============LOGOUT===============
