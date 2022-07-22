@@ -1,5 +1,5 @@
-import { ChildFriendly } from '@mui/icons-material';
-import React from 'react'
+
+import React, { useState } from 'react'
 import { createContext, useContext } from "react";
 
 //? 1- Defining
@@ -14,8 +14,9 @@ export const useAuthContext = () => {
 //? 2- Provider Component
 
 const  AuthContextProvider = ({children}) => {
+  const [currentUser,setCurrentUser] =useState(false)
   return (
-    <AuthContext.Provider value={{}}>
+    <AuthContext.Provider value={{currentUser}}>
       {children}
     </AuthContext.Provider>
   )
