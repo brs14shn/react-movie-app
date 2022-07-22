@@ -5,18 +5,12 @@ import { initializeApp } from 'firebase/app';
 import {
     createUserWithEmailAndPassword,
     getAuth,
-    GoogleAuthProvider,
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    signInWithPopup,
-    signOut,
-    updateProfile,
   } from "firebase/auth";
 
   // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 
-  import { toast } from "react-toastify";
+  // import { toast } from "react-toastify";
 
   //? React-Toastify, uygulamanıza kolaylıkla bildirim eklemenizi sağlar.
 
@@ -44,7 +38,7 @@ const app = initializeApp(firebaseConfig);
 // }
 
 
-//? Yeni kullanıcıları kaydetmek için :
+// //? Yeni kullanıcıları kaydetmek için :
 export const createUser = async (email, password, displayName, navigate) => {
     try {
       let userCredential = await createUserWithEmailAndPassword(
@@ -52,41 +46,40 @@ export const createUser = async (email, password, displayName, navigate) => {
         email,
         password
       );
-      await updateProfile(auth.currentUser, {
-        displayName: displayName,
-      });
-  
+      // await updateProfile(auth.currentUser, {
+      //   displayName: displayName,
+      // });
       navigate("/");
       console.log(userCredential);
     } catch (err) {
-      toast.error(err.message);
+     console.log(err)
     }
   };
 
-//* => Authentication => sign-in-method => enable Email/password
-//* ====================== SİGN ======================
-export const signIn = async (email, password, navigate) => {
-    try {
-      let userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      navigate("/");
-      toast.success("Signed in successfully");
-      console.log(userCredential);
-    } catch (err) {
-      toast.error(err.message);
-    }
-  };
+// //* => Authentication => sign-in-method => enable Email/password
+// //* ====================== SİGN ======================
+// export const signIn = async (email, password, navigate) => {
+//     try {
+//       let userCredential = await signInWithEmailAndPassword(
+//         auth,
+//         email,
+//         password
+//       );
+//       navigate("/");
+//       toast.success("Signed in successfully");
+//       console.log(userCredential);
+//     } catch (err) {
+//       toast.error(err.message);
+//     }
+//   };
 
 
-  //*==============LOGOUT===============
+//   //*==============LOGOUT===============
 
-  export const logOut = () => {
-    signOut(auth);
-    toast.success("Logged out successfully");
-  };
+//   export const logOut = () => {
+//     signOut(auth);
+//     toast.success("Logged out successfully");
+//   };
 
   
 
