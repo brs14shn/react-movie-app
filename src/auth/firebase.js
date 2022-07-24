@@ -6,7 +6,8 @@ import { initializeApp } from 'firebase/app';
 import {
     createUserWithEmailAndPassword,
     getAuth,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    onAuthStateChanged
   } from "firebase/auth";
 
  import { toastErrorNotify, toastSuccessNotify } from "../helper/toastifyContainer"
@@ -45,7 +46,7 @@ export const createUser=async(email,password,displayName,navigate)=>{
 
 
 // //* => Authentication => sign-in-method => enable Email/password
-// //* ====================== 2- SİGN ======================
+// //* ====================== 2- SİGN-İN ======================
 export const signIn = async (email, password, navigate) => {
     try {
       let userCredential = await signInWithEmailAndPassword(
@@ -54,12 +55,32 @@ export const signIn = async (email, password, navigate) => {
         password
       );
       navigate("/");
+      // sessionStorage.setItem("user",JSON.stringify(userCredential.user))
+      //? Firebasenin sayfaya giriş yaptığı kontrol eden methodumuzu kullanmamız gerekiyor
+      //! onAuthStateChanged==>Bir kimlik doğrulama durumu gözlemcisi 
       toastSuccessNotify("Signed in successfully");
       console.log(userCredential);
     } catch (err) {
      toastErrorNotify (err.message);
     }
   };
+
+  // onAuthStateChanged==>Bir kimlik doğrulama durumu gözlemcisi 
+
+export const userObserver=(setCurrentUser)=>{
+//? Kullanıcının login olup olmadığını login ise user bilgisini dönüyor...
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    setCurrentUser(user)
+  } else {
+   setCurrentUser(false)
+  }
+});
+
+}
+
+  
 
 
 
@@ -82,3 +103,8 @@ export const signIn = async (email, password, navigate) => {
 
   
 
+
+
+
+
+//*https://firebase.google.com/docs/auth/web/google-signin

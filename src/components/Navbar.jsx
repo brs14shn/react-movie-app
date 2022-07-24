@@ -6,7 +6,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   //* Test için;
   // const currentUser = { displayName: "barıs sahin" };
-  const { currentUser } = useAuthContext();
+  const { currentUser } = useAuthContext(); // custom hook
+  //or
   // const {currentUser}=useContext(AuthContext)
   return (
     <div>
@@ -22,7 +23,12 @@ const Navbar = () => {
               <h5 className="mb-0 text-capitalize">
                 {currentUser.displayName}
               </h5>
-              <button className="ms-2 btn btn-outline-light">Logout</button>
+              <button
+                onClick={() => navigate("/login")}
+                className="ms-2 btn btn-outline-light"
+              >
+                Logout
+              </button>
             </>
           ) : (
             <>
