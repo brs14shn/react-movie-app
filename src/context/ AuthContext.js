@@ -15,7 +15,7 @@ export const useAuthContext = () => {
 //? 2- Provider Component
 
 const  AuthContextProvider = ({children}) => {
-  const [currentUser,setCurrentUser] =useState(true)
+  const [currentUser,setCurrentUser] =useState(false)
 
   useEffect(() => {
   //  setCurrentUser(JSON.parse(sessionStorage.getItem("user")))

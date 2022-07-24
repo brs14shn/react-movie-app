@@ -7,7 +7,9 @@ import {
     createUserWithEmailAndPassword,
     getAuth,
     signInWithEmailAndPassword,
-    onAuthStateChanged
+    onAuthStateChanged,
+    signOut,
+    updateProfile
   } from "firebase/auth";
 
  import { toastErrorNotify, toastSuccessNotify } from "../helper/toastifyContainer"
@@ -34,7 +36,11 @@ export const createUser=async(email,password,displayName,navigate)=>{
         let userCredential=await createUserWithEmailAndPassword(auth, email, password);
         console.log(userCredential);
         navigate("/");
-        toastSuccessNotify("Giriş başarılı")   
+        toastSuccessNotify("Giriş başarılı")  
+        
+        await updateProfile(auth.currentUser, {
+          displayName: displayName,
+        })
     }
     catch(err){
      toastErrorNotify(err.message)
@@ -80,28 +86,15 @@ onAuthStateChanged(auth, (user) => {
 
 }
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
 
 //   //*==============LOGOUT===============
 
-//   export const logOut = () => {
-//     signOut(auth);
-//     toast.success("Logged out successfully");
-//   };
+  export const logOut = () => {
+    signOut(auth);
+   toastSuccessNotify("Logged out successfully");
+  };
 
-  
+  //* 
 
 
 
